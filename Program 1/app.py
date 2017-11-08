@@ -25,10 +25,15 @@ def getIndex( word, list ):
 
 def getDefinition(_input):
     try:
-        results = get_close_matches( _input.lower(), data.keys() )
+        if( _input[0].isupper() ):
+            _input = _input.capitalize()
+            results = get_close_matches( _input, data.keys() )
+        else:
+            _input = _input.lower()
+            results = get_close_matches( _input, data.keys() )
         if len( results ) == 0:
             return "No definition found"
-        elif( results[0] != _input.lower() ):
+        elif( results[0] != _input ):
             idx = getIndex(_input, results )
             if( idx == -1 ):
                 return ""

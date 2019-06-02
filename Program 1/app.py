@@ -27,10 +27,9 @@ def getDefinition(_input):
     try:
         if( _input[0].isupper() ):
             _input = _input.capitalize()
-            results = get_close_matches( _input, data.keys() )
         else:
             _input = _input.lower()
-            results = get_close_matches( _input, data.keys() )
+        results = get_close_matches( _input, data.keys() )
         if len( results ) == 0:
             return "No definition found"
         elif( results[0] != _input ):

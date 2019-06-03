@@ -1,23 +1,30 @@
 import folium
 import sys
+import pandas
 from pathlib import Path
 
-fileName = 'Volcanoes.txt'
+inFile = 'Volcanoes.txt'
+outFile = 'Map.html'
 nyc_coords = [40.710377, -73.991997]
 
 def main():
-    map = folium.Map(location=nyc_coords, tiles="Mapbox Bright")
-    featureGroup = createFeatureGroup()
+    map = folium.Map(location=[38.58, -99.09], tiles="Mapbox Bright", zoom_start=5)
+    data = pandas.read_csv(inFile)
+    featureGroup = createFeatureGroup(data)
     map.add_child(featureGroup)
-    map.save("map_nyc.html");
+    map.save(outFile);
 
-def createFeatureGroup():
+def createFeatureGroup(data):
     featureGroup = folium.FeatureGroup(name='MyMap')
-    featureGroup.add_child(folium.Marker(location=nyc_coords, popup="Marker Location", icon=folium.Icon(color='green')))
+    lat = list(data["LAT"])
+    lon = list(data["LON"])
+    names = list(data["NAME"])
+    for lt, ln, name in zip(lat,lon,names):
+        featureGroup.add_child(folium.Marker(location=[lt,ln], popup=name, icon=folium.Icon(color='green')))
     return featureGroup
 
 if __name__ == '__main__':
-    if not Path(fileName).is_file():
-        print("file doesn't exist... exiting")
+    if not Path(inFile).is_file():
+        print("File [ %s ] doesn't exist. Exiting..." % inFile)
         sys.exit()
     main()

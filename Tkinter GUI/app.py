@@ -5,6 +5,7 @@ window=Tk()
 e1_value=StringVar()
 
 def km_to_miles():
+    t1.delete('1.0', END)
     try:
         miles = float(e1_value.get()) * 1.6
         t1.insert(END, miles)

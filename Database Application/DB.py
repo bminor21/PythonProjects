@@ -8,7 +8,7 @@ def get_connection() -> sqlite3.Connection:
 def connect() -> None:
     con = get_connection()
     cur = con.cursor()
-    cur.execute("CREATE TABLE IF NOT EXISTS book (id INT PRIMARY KEY, title text, author text, year integer, isbn integer)")
+    cur.execute("CREATE TABLE IF NOT EXISTS book (id INTEGER PRIMARY KEY AUTOINCREMENT, title text, author text, year integer, isbn integer)")
     con.commit()
     con.close()
 
@@ -25,7 +25,7 @@ def fetchall() -> list:
 def insert(title, author, year, isbn) -> None:
     con = get_connection()
     cur = con.cursor()
-    cur.execute("INSERT into book values(NULL,?,?,?,?)", (title, author, year, isbn))
+    cur.execute("INSERT into book (title, author, year, isbn) values (?,?,?,?)", (title, author, year, isbn))
     con.commit()
     con.close()
 

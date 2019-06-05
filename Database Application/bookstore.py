@@ -1,10 +1,16 @@
 from tkinter import *
+from typing import Union, Any
 import DB
 
 
-def get_selected():
-    index = listBox.curselection()[0]
-    selected_tuple = listBox.get(index)
+def get_selected() -> Union[Any, None]:
+    selected_tuple = None
+    try:
+        index = listBox.curselection()[0]
+        selected_tuple = listBox.get(index)
+    except IndexError:
+        pass
+
     return selected_tuple
 
 
@@ -23,8 +29,10 @@ def update_entry_fields(selected_tuple) -> None:
 
 
 def get_selected_row(event) -> None:
+    selected_tuple = get_selected()
     clear_entry_fields()
-    update_entry_fields(get_selected())
+    if selected_tuple is not None:
+        update_entry_fields(get_selected())
 
 
 def viewall() -> None:
@@ -46,13 +54,16 @@ def add() -> None:
 
 def update() -> None:
     selected_tuple = get_selected()
-    DB.update(selected_tuple[0], titleInput.get(), authorInput.get(), yearInput.get(), isbnInput.get())
-    viewall()
+    if selected_tuple is not None:
+        DB.update(selected_tuple[0], titleInput.get(), authorInput.get(), yearInput.get(), isbnInput.get())
+        viewall()
 
 
 def delete() -> None:
-    DB.delete(get_selected()[0])
-    viewall()
+    selected_tuple = get_selected()
+    if selected_tuple is not None:
+        DB.delete(selected_tuple[0])
+        viewall()
 
 
 # Main Window

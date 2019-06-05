@@ -1,7 +1,5 @@
 from tkinter import *
-from DB import DB
-
-db = DB()
+import DB
 
 
 def get_selected():
@@ -31,29 +29,29 @@ def get_selected_row(event) -> None:
 
 def viewall() -> None:
     listBox.delete(0, END)
-    for entry in db.fetchall():
+    for entry in DB.fetchall():
         listBox.insert(END, entry)
 
 
 def search() -> None:
     listBox.delete(0, END)
-    for row in db.search(titleInput.get(), authorInput.get(), yearInput.get(), isbnInput.get()):
+    for row in DB.search(titleInput.get(), authorInput.get(), yearInput.get(), isbnInput.get()):
         listBox.insert(END, row)
 
 
 def add() -> None:
-    db.insert(titleInput.get(), authorInput.get(), yearInput.get(), isbnInput.get())
+    DB.insert(titleInput.get(), authorInput.get(), yearInput.get(), isbnInput.get())
     viewall()
 
 
 def update() -> None:
     selected_tuple = get_selected()
-    db.update(selected_tuple[0], titleInput.get(), authorInput.get(), yearInput.get(), isbnInput.get())
+    DB.update(selected_tuple[0], titleInput.get(), authorInput.get(), yearInput.get(), isbnInput.get())
     viewall()
 
 
 def delete() -> None:
-    db.delete(get_selected()[0])
+    DB.delete(get_selected()[0])
     viewall()
 
 

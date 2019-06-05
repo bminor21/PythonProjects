@@ -1,6 +1,8 @@
 from tkinter import *
 from typing import Union, Any
-import DB
+from DB import DB
+
+db = DB("books.db")
 
 
 def get_selected() -> Union[Any, None]:
@@ -37,32 +39,32 @@ def get_selected_row(event) -> None:
 
 def viewall() -> None:
     listBox.delete(0, END)
-    for entry in DB.fetchall():
+    for entry in db.fetchall():
         listBox.insert(END, entry)
 
 
 def search() -> None:
     listBox.delete(0, END)
-    for row in DB.search(titleInput.get(), authorInput.get(), yearInput.get(), isbnInput.get()):
+    for row in db.search(titleInput.get(), authorInput.get(), yearInput.get(), isbnInput.get()):
         listBox.insert(END, row)
 
 
 def add() -> None:
-    DB.insert(titleInput.get(), authorInput.get(), yearInput.get(), isbnInput.get())
+    db.insert(titleInput.get(), authorInput.get(), yearInput.get(), isbnInput.get())
     viewall()
 
 
 def update() -> None:
     selected_tuple = get_selected()
     if selected_tuple is not None:
-        DB.update(selected_tuple[0], titleInput.get(), authorInput.get(), yearInput.get(), isbnInput.get())
+        db.update(selected_tuple[0], titleInput.get(), authorInput.get(), yearInput.get(), isbnInput.get())
         viewall()
 
 
 def delete() -> None:
     selected_tuple = get_selected()
     if selected_tuple is not None:
-        DB.delete(selected_tuple[0])
+        db.delete(selected_tuple[0])
         viewall()
 
 

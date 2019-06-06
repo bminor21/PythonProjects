@@ -1,6 +1,6 @@
 from tkinter import Entry, Button, Listbox, Scrollbar, END, StringVar, Label, Tk
 from typing import Union, Any
-from DB import DB
+from .DB import DB
 
 db = DB("books.db")
 

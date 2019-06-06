@@ -1,4 +1,4 @@
-from tkinter import *
+from tkinter import Entry, Button, Listbox, Scrollbar, END, StringVar, Label, Tk
 from typing import Union, Any
 from DB import DB
 
@@ -57,7 +57,8 @@ def add() -> None:
 def update() -> None:
     selected_tuple = get_selected()
     if selected_tuple is not None:
-        db.update(selected_tuple[0], titleInput.get(), authorInput.get(), yearInput.get(), isbnInput.get())
+        db.update(selected_tuple[0], titleInput.get(), authorInput.get(),
+                  yearInput.get(), isbnInput.get())
         viewall()
 
 

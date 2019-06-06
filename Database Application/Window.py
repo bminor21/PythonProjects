@@ -1,8 +1,8 @@
 from tkinter import Entry, Button, Listbox, Scrollbar, END, StringVar, Label
 from typing import Union, Any
-from DB import DB
+from Database import Database
 
-db = DB("books.db")
+db = Database("books.db")
 
 
 class Window:

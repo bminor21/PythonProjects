@@ -1,7 +1,7 @@
 import sqlite3
 
 
-class DB:
+class Database:
     con = None
     cur = None
 
